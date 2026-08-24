@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frameworks Backend — Por que usar?</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            background:
+                radial-gradient(circle at 20% 20%, #1e40af55, transparent 35%),
+                radial-gradient(circle at 80% 80%, #7c3aed44, transparent 35%),
+                #0f172a;
+        }
+
+        .hero {
+            max-width: 950px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 8px 16px;
+            border: 1px solid #475569;
+            border-radius: 30px;
+            color: #93c5fd;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        h1 {
+            font-size: clamp(42px, 7vw, 82px);
+            line-height: 1;
+            margin-bottom: 25px;
+        }
+
+        h1 span {
+            color: #60a5fa;
+        }
+
+        .hero p {
+            font-size: 21px;
+            color: #94a3b8;
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .scroll {
+            margin-top: 50px;
+            color: #64748b;
+        }
+
+        main {
+            max-width: 1150px;
+            margin: auto;
+            padding: 80px 20px;
+        }
+
+        section {
+            margin-bottom: 100px;
+        }
+
+        .section-title {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            color: #94a3b8;
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+
+        .problem {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 18px;
+            padding: 30px;
+            transition: .3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #60a5fa;
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .card p {
+            color: #94a3b8;
+        }
+
+        .danger {
+            border-color: #7f1d1d;
+        }
+
+        .danger h3 {
+            color: #f87171;
+        }
+
+        .success {
+            border-color: #14532d;
+        }
+
+        .success h3 {
+            color: #4ade80;
+        }
+
+        .framework {
+            background: linear-gradient(135deg, #1e3a8a, #312e81);
+            border: 1px solid #4f46e5;
+            border-radius: 25px;
+            padding: 45px;
+            margin-top: 30px;
+        }
+
+        .framework h3 {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .comparison {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #1e293b;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 18px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+
+        th {
+            background: #334155;
+            color: #fff;
+        }
+
+        td {
+            color: #cbd5e1;
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .benefit {
+            padding: 30px;
+            background: #111827;
+            border: 1px solid #334155;
+            border-radius: 18px;
+        }
+
+        .number {
+            font-size: 42px;
+            font-weight: bold;
+            color: #60a5fa;
+            margin-bottom: 10px;
+        }
+
+        .architecture {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .layer {
+            padding: 25px 35px;
+            border-radius: 15px;
+            text-align: center;
+            background: #1e293b;
+            border: 1px solid #475569;
+            min-width: 170px;
+        }
+
+        .arrow {
+            font-size: 30px;
+            color: #60a5fa;
+        }
+
+        .code {
+            background: #020617;
+            border: 1px solid #334155;
+            padding: 25px;
+            border-radius: 15px;
+            font-family: Consolas, monospace;
+            overflow-x: auto;
+            margin-top: 30px;
+            color: #c4b5fd;
+        }
+
+        .highlight {
+            color: #60a5fa;
+        }
+
+        .question {
+            text-align: center;
+            padding: 70px 30px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #172554, #312e81);
+            border: 1px solid #4338ca;
+        }
+
+        .question h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .question p {
+            color: #cbd5e1;
+            font-size: 19px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid #1e293b;
+            color: #64748b;
+        }
+
+        @media (max-width: 800px) {
+            .problem,
+            .benefits {
+                grid-template-columns: 1fr;
+            }
+
+            .framework {
+                padding: 30px;
+            }
+
+            .arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="hero">
+        <div class="tag">BACKEND DEVELOPMENT</div>
+
+        <h1>
+            Por que usar <span>Frameworks?</span>
+        </h1>
+
+        <p>
+            Frameworks ajudam desenvolvedores a construir sistemas backend
+            mais rápidos, organizados, seguros, escaláveis e fáceis de manter.
+        </p>
+
+        <div class="scroll">
+            ↓ Explore o conteúdo
+        </div>
+    </div>
+</header>
+
+<main>
+
+    <!-- PROBLEMA -->
+    <section>
+        <h2 class="section-title">Imagine construir tudo do zero</h2>
+
+        <p class="section-subtitle">
+            Um backend moderno possui dezenas de responsabilidades.
+        </p>
+
+        <div class="problem">
+
+            <div class="card danger">
+                <h3>❌ Sem Framework</h3>
+                <p>
+                    O desenvolvedor precisa decidir e implementar praticamente
+                    tudo: roteamento, autenticação, validação, conexão com banco,
+                    tratamento de erros, segurança, organização do projeto,
+                    middlewares e muito mais.
+                </p>
+            </div>
+
+            <div class="card success">
+                <h3>✅ Com Framework</h3>
+                <p>
+                    Grande parte dessas funcionalidades já possui uma estrutura
+                    pronta e padronizada. O desenvolvedor pode concentrar seus
+                    esforços nas regras de negócio da aplicação.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- DEFINIÇÃO -->
+    <section>
+
+        <h2 class="section-title">Mas afinal, o que é um Framework?</h2>
+
+        <p class="section-subtitle">
+            Pense em um framework como uma estrutura de construção de software.
+        </p>
+
+        <div class="framework">
+
+            <h3>Framework = Estrutura + Convenções + Ferramentas</h3>
+
+            <p>
+                Um framework fornece uma base arquitetural para desenvolver
+                aplicações. Ele define padrões, oferece componentes reutilizáveis
+                e disponibiliza ferramentas que resolvem problemas comuns.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- BENEFÍCIOS -->
+    <section>
+
+        <h2 class="section-title">Principais benefícios</h2>
+
+        <p class="section-subtitle">
+            Por que empresas e equipes profissionais utilizam frameworks?
+        </p>
+
+        <div class="benefits">
+
+            <div class="benefit">
+                <div class="number">01</div>
+                <h3>Produtividade</h3>
+                <p>
+                    Menos tempo construindo infraestrutura e mais tempo
+                    desenvolvendo funcionalidades.
+                </p>
+            </div>
+
+            <div class="benefit">
+                <div class="number">02</div>
+                <h3>Padronização</h3>
+                <p>
+                    Projetos seguem uma estrutura conhecida, facilitando
+                    o trabalho em equipe.
+                </p>
+            </div>
+
+            <div class="benefit">
+                <div class="number">03</div>
+                <h3>Manutenção</h3>
+                <p>
+                    Código organizado e baseado em padrões facilita
+                    correções e evolução.
+                </p>
+            </div>
+
+            <div class="benefit">
+                <div class="number">04</div>
+                <h3>Segurança</h3>
+                <p>
+                    Frameworks oferecem mecanismos e boas práticas para
+                    reduzir vulnerabilidades comuns.
+                </p>
+            </div>
+
+            <div class="benefit">
+                <div class="number">05</div>
+                <h3>Escalabilidade</h3>
+                <p>
+                    Estruturas preparadas para aplicações que crescem
+                    em funcionalidades e usuários.
+                </p>
+            </div>
+
+            <div class="benefit">
+                <div class="number">06</div>
+                <h3>Comunidade</h3>
+                <p>
+                    Documentação, bibliotecas, plugins e uma comunidade
+                    ajudam a resolver problemas mais rapidamente.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- COMPARAÇÃO -->
+    <section>
+
+        <h2 class="section-title">Desenvolver do zero × Framework</h2>
+
+        <p class="section-subtitle">
+            O objetivo não é eliminar o código, mas evitar reinventar a roda.
+        </p>
+
+        <div class="comparison">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Responsabilidade</th>
+                        <th>Do zero</th>
+                        <th>Com Framework</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Rotas HTTP</td>
+                        <td>Implementar</td>
+                        <td>Estrutura pronta</td>
+                    </tr>
+
+                    <tr>
+                        <td>Banco de dados</td>
+                        <td>Configurar e implementar</td>
+                        <td>ORM / ferramentas disponíveis</td>
+                    </tr>
+
+                    <tr>
+                        <td>Autenticação</td>
+                        <td>Construir</td>
+                        <td>Bibliotecas e recursos prontos</td>
+                    </tr>
+
+                    <tr>
+                        <td>Validação</td>
+                        <td>Implementar</td>
+                        <td>Recursos disponíveis</td>
+                    </tr>
+
+                    <tr>
+                        <td>Middlewares</td>
+                        <td>Construir arquitetura</td>
+                        <td>Suporte nativo</td>
+                    </tr>
+
+                    <tr>
+                        <td>Organização</td>
+                        <td>Decisão da equipe</td>
+                        <td>Padrões definidos</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ARQUITETURA -->
+    <section>
+
+        <h2 class="section-title">O Framework organiza o projeto</h2>
+
+        <p class="section-subtitle">
+            Uma aplicação backend pode ser dividida em responsabilidades.
+        </p>
+
+        <div class="architecture">
+
+            <div class="layer">
+                <strong>Controller</strong>
+                <br>
+                Recebe requisições
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="layer">
+                <strong>Service</strong>
+                <br>
+                Regra de negócio
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="layer">
+                <strong>Model / ORM</strong>
+                <br>
+                Dados
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="layer">
+                <strong>Database</strong>
+                <br>
+                Persistência
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- EXEMPLO -->
+    <section>
+
+        <h2 class="section-title">Exemplo: uma API</h2>
+
+        <p class="section-subtitle">
+            Imagine que precisamos criar uma API para listar produtos.
+        </p>
+
+        <div class="code">
+            <span class="highlight">GET</span> /api/products
+            <br><br>
+
+            → Route
+            <br>
+            → Controller
+            <br>
+            → Service
+            <br>
+            → Model / ORM
+            <br>
+            → Database
+            <br>
+            → JSON Response
+        </div>
+
+        <div class="framework">
+
+            <h3>O framework ajuda a conectar essas peças.</h3>
+
+            <p>
+                Em vez de criar toda essa infraestrutura manualmente,
+                utilizamos os recursos fornecidos pelo framework e
+                concentramos nosso trabalho naquilo que torna o sistema
+                único: sua regra de negócio.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- FRAMEWORKS -->
+    <section>
+
+        <h2 class="section-title">Exemplos de Frameworks Backend</h2>
+
+        <p class="section-subtitle">
+            Cada linguagem possui diferentes opções.
+        </p>
+
+        <div class="benefits">
+
+            <div class="benefit">
+                <h3>🐘 Laravel</h3>
+                <p>
+                    Framework PHP moderno, produtivo e com uma grande
+                    quantidade de recursos integrados.
+                </p>
+            </div>
+
+            <div class="benefit">
+                <h3>🟢 NestJS</h3>
+                <p>
+                    Framework para Node.js baseado em TypeScript,
+                    arquitetura modular e conceitos do ecossistema
+                    empresarial.
+                </p>
+            </div>
+
+            <div class="benefit">
+                <h3>☕ Spring Boot</h3>
+                <p>
+                    Uma das principais opções para desenvolvimento
+                    backend no ecossistema Java.
+                </p>
+            </div>
+
+            <div class="benefit">
+                <h3>🐍 Django</h3>
+                <p>
+                    Framework Python conhecido pela produtividade,
+                    segurança e abordagem "batteries included".
+                </p>
+            </div>
+
+            <div class="benefit">
+                <h3>🚀 Gin</h3>
+                <p>
+                    Framework HTTP leve e rápido para aplicações
+                    desenvolvidas em Go.
+                </p>
+            </div>
+
+            <div class="benefit">
+                <h3>💎 Rails</h3>
+                <p>
+                    Framework Ruby focado em convenções e produtividade
+                    no desenvolvimento de aplicações web.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONCEITO IMPORTANTE -->
+    <section>
+
+        <div class="question">
+
+            <h2>Framework não é mágica.</h2>
+
+            <p>
+                Ele não substitui o conhecimento do desenvolvedor.
+                Ele fornece uma estrutura para que o desenvolvedor
+                possa trabalhar melhor.
+            </p>
+
+            <br>
+
+            <p>
+                <strong>
+                    Quanto mais complexo o projeto, mais importante
+                    se torna ter organização, padrões e boas práticas.
+                </strong>
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONCLUSÃO -->
+    <section>
+
+        <h2 class="section-title">A ideia principal</h2>
+
+        <p class="section-subtitle">
+            Frameworks permitem que equipes foquem no problema de negócio.
+        </p>
+
+        <div class="framework">
+
+            <h3>Não reinventar a roda 🚀</h3>
+
+            <p>
+                Em um projeto profissional, o objetivo não é provar que
+                conseguimos construir tudo do zero.
+            </p>
+
+            <br>
+
+            <p>
+                O objetivo é entregar software confiável, seguro,
+                sustentável e fácil de evoluir.
+            </p>
+
+            <br>
+
+            <p>
+                Frameworks ajudam exatamente nisso.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    Backend Development • Frameworks • Software Engineering
+</footer>
+
+</body>
+</html>
